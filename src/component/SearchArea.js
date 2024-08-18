@@ -34,6 +34,7 @@ const SearchArea = ({ cities, setCities, isCelsius, setIsCelsius }) => {
           placeholder='Enter city name'
         />
         <button
+          className='btn-add'
           onClick={() =>
             handleCitySearch(document.getElementById('city-input').value)
           }
