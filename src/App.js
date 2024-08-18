@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './component/WeatherBox';
@@ -16,7 +16,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const cities = ['Seoul', 'Toronto', 'Vancouver', 'Quebec'];
 
-  const getCurrentPosition = () => {
+  const getCurrentPosition = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
@@ -24,7 +24,7 @@ function App() {
 
       getWeatherByCurrentLocation(lat, lon);
     });
-  };
+  }, []);
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
     const APIKey = `6b37f55cdd36fdaefcb3814bc10d46fc`;
@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     getCurrentPosition();
-  }, []);
+  }, [getCurrentPosition]);
 
   return (
     <div>
