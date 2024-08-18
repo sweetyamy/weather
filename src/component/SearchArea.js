@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // 검색 영역 컴포넌트
 const SearchArea = ({ cities, setCities, isCelsius, setIsCelsius }) => {
-  const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태
+  // const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태
 
   // 도시명을 대문자로 변환하는 함수
   const capitalizeFirstLetter = (city) => {
