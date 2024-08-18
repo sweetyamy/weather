@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // 검색 영역 컴포넌트
@@ -16,7 +16,7 @@ const SearchArea = ({ cities, setCities, isCelsius, setIsCelsius }) => {
     if (cities.length < 4 && !cities.includes(formattedCity)) {
       setCities([...cities, formattedCity]);
     } else if (cities.length === 4) {
-      alert('You can only add up to 4 cities.'); // 최대 5개까지 도시 추가 제한
+      alert('You can only add up to 4 cities.');
     }
   };
 
