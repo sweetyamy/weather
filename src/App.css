@@ -6,10 +6,92 @@
   height: 100vh;
 }
 
+/* Button */
 .btn {
   margin: 3px;
+  padding: 0px;
 }
 
 .btn:last-child {
   margin: 0;
+}
+
+.btn-add {
+  margin: 5px;
+  padding: 3px 10px 3px 10px ; /* Top Right Bottom Left */
+  border: 1px solid #99c1fc;
+  background-color: #cfe2ff;
+  border-radius: 5px;
+}
+
+
+/* Input */
+.task-input {
+  outline: none;
+  border-bottom: 3px solid #cfe2ff;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.task-input:focus {
+  outline: none;
+  border-bottom: 3px solid #cfe2ff;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  transition: 0.5s;
+  padding-top: 35px;
+}
+
+/* toggle */
+.toggle-container {
+  width: 110px;
+  height: 25px;
+  background-color: hsl(0, 0%, 31%);
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  z-index: 100; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Toggle circle */
+.toggle-circle {
+  width: 50px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 30px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  z-index: 101; /* 텍스트 위에 서클이 오도록 z-index 설정 */
+}
+
+/* Text for °F and °C */
+.toggle-text-left, .toggle-text-right {
+  color: #fff;
+  font-size: 12px;
+  z-index: 100; /* 서클 뒤에 텍스트가 위치하도록 z-index 설정 */
+}
+
+.toggle-text-left {
+  position: absolute;
+  left: 10px;
+}
+
+.toggle-text-right {
+  position: absolute;
+  right: 10px;
+}
+
+/* Toggle active 상태 */
+.toggle-container.toggled .toggle-circle {
+  left: 58px; /* 토글 서클이 오른쪽 끝으로 이동하도록 설정 */
 }

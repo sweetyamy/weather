@@ -1,6 +1,8 @@
 import React from 'react';
 
-const WeatherBox = ({ weather }) => {
+// WeatherBox 컴포넌트는 날씨 데이터를 받아와 화면에 표시합니다.
+const WeatherBox = ({ weather, isCelsius }) => {
+  // 섭씨(Celsius)에서 화씨(Fahrenheit)로 변환하는 함수
   const toFahrenheit = (celsius) => ((celsius * 9) / 5 + 32).toFixed(1);
 
   console.log('weather?', weather);
@@ -10,47 +12,29 @@ const WeatherBox = ({ weather }) => {
 
   return (
     <div>
-      {/* first row - search */}
+      <div>{weather.name}</div>
       <div>
-        <div>
-          <input></input> <button>Search</button>
-        </div>
-        <div>
-          <div>Metric: °C, m/s</div>
-          <div>Metric: ℉, mph</div>
-        </div>
+        Temp:{' '}
+        {isCelsius
+          ? weather.main.temp_min
+          : toFahrenheit(weather.main.temp_min)}{' '}
+        ~
+        {isCelsius
+          ? weather.main.temp_max
+          : toFahrenheit(weather.main.temp_max)}
+        °{isCelsius ? 'C' : 'F'} | Feels like:{' '}
+        {isCelsius
+          ? weather.main.feels_like
+          : toFahrenheit(weather.main.feels_like)}
+        °{isCelsius ? 'C' : 'F'}
       </div>
-
-      {/* second row - weahter info */}
+      <div>{weather.weather[0].description}</div>
       <div>
-        {/* Temp - Celsius */}
-        <div>{weather.name}</div>
-        {/* WeatherBox안의 If문 대신 이런식으로 &&나 삼항연산자 사용도 가능 ex) {weather && weather.name} {weather?.name} */}
         <div>
-          Temp: {weather.main.temp_min} ~ {weather.main.temp_max}°C | Feels
-          like: {weather.main.feels_like}°C
+          Wind speed: {weather.wind.speed} {isCelsius ? 'm/s' : 'mph'}
         </div>
-        {/* Temp - Fahrenheit */}
-        <div>
-          Temp: {toFahrenheit(weather.main.temp_min)} ~
-          {toFahrenheit(weather.main.temp_max)}°F | Feels like:
-          {toFahrenheit(weather.main.feels_like)}°F
-        </div>
-        <div>{weather.main.description}</div>
-        <div>
-          <div>Wind speed: {weather.wind.speed}</div>
-          <div>Humidity: {weather.main.humidity}%</div>
-          <div>Visibility: {weather.visibility.toLocaleString()}km</div>
-        </div>
-      </div>
-
-      {/* third row - a week info */}
-      <div>
-        <div>{/* graph */}</div>
-        <div>Sun, Aug 18</div>
-        <div>24 / 14°C</div>
-        <div>Scattered clouds. Gentle Breeze</div>
-        <div>*</div>
+        <div>Humidity: {weather.main.humidity}%</div>
+        <div>Visibility: {weather.visibility.toLocaleString()} km</div>
       </div>
     </div>
   );
