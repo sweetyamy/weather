@@ -24,6 +24,25 @@ function App() {
   let [loading, setLoading] = useState(true);
   let [color] = useState('#ffffff');
 
+  // 현재 위치 기반 날씨 데이터를 API로부터 가져오는 함수
+  const getWeatherByCurrentLocation = useCallback(
+    async (lat, lon) => {
+      setLoading(true); // 로딩 시작
+      try {
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKey}&units=metric`;
+        let res = await fetch(url);
+        let data = await res.json();
+        console.log('data', data);
+        setWeather(data);
+      } catch (error) {
+        console.error('Failed to fetch weather data', error);
+      } finally {
+        setLoading(false); // 로딩 종료
+      }
+    },
+    [APIKey]
+  ); // `APIKey` is the only dependency
+
   // 현재 위치 기반 날씨를 가져오는 함수
   const getCurrentPosition = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -33,48 +52,38 @@ function App() {
 
       getWeatherByCurrentLocation(lat, lon);
     });
-  }, []);
+  }, [getWeatherByCurrentLocation]); // `getWeatherByCurrentLocation` as a dependency
 
-  // 현재 위치 기반 날씨 데이터를 API로부터 가져오는 함수
-  const getWeatherByCurrentLocation = async (lat, lon) => {
-    setLoading(true); // 로딩 시작
-    try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKey}&units=metric`;
-      let res = await fetch(url);
-      let data = await res.json();
-      console.log('data', data);
-      setWeather(data);
-    } catch (error) {
-      console.error('Failed to fetch weather data', error);
-    } finally {
-      setLoading(false); // 로딩 종료
-    }
-  };
-
-  const getWeatherByCity = async (cityName) => {
-    setLoading(true); // 로딩 시작
-    try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric`;
-      let res = await fetch(url);
-      let data = await res.json();
-      console.log('selected city data', data);
-      setWeather(data); // 선택된 도시의 날씨 데이터 업데이트
-    } catch (error) {
-      console.error('Failed to fetch city weather data', error);
-    } finally {
-      setLoading(false); // 로딩 종료
-    }
-  };
-
-  const handleCityClick = (city) => {
-    getWeatherByCity(city); // 선택된 도시의 날씨를 가져옴
-    setCities((prevCities) => {
-      if (!prevCities.includes(city)) {
-        return [...prevCities, city]; // 기존 배열에 새 도시 추가
+  const getWeatherByCity = useCallback(
+    async (cityName) => {
+      setLoading(true); // 로딩 시작
+      try {
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric`;
+        let res = await fetch(url);
+        let data = await res.json();
+        console.log('selected city data', data);
+        setWeather(data); // 선택된 도시의 날씨 데이터 업데이트
+      } catch (error) {
+        console.error('Failed to fetch city weather data', error);
+      } finally {
+        setLoading(false); // 로딩 종료
       }
-      return prevCities; // 도시가 이미 목록에 있으면 그대로 유지
-    });
-  };
+    },
+    [APIKey]
+  ); // `APIKey` as a dependency
+
+  const handleCityClick = useCallback(
+    (city) => {
+      getWeatherByCity(city); // 선택된 도시의 날씨를 가져옴
+      setCities((prevCities) => {
+        if (!prevCities.includes(city)) {
+          return [...prevCities, city]; // 기존 배열에 새 도시 추가
+        }
+        return prevCities; // 도시가 이미 목록에 있으면 그대로 유지
+      });
+    },
+    [getWeatherByCity]
+  );
 
   useEffect(() => {
     getCurrentPosition(); // 컴포넌트가 마운트될 때 현재 위치 기반 날씨를 가져옴
