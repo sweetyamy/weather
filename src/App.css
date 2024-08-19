@@ -1,3 +1,7 @@
+div {
+  padding: 3px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -48,7 +52,8 @@
 .toggle-container {
   width: 110px;
   height: 25px;
-  background-color: hsl(0, 0%, 31%);
+  border: 1px solid #909090; 
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 25px;
   position: relative;
   cursor: pointer;
@@ -63,20 +68,21 @@
 
 /* Toggle circle */
 .toggle-circle {
-  width: 50px;
-  height: 20px;
-  background-color: #fff;
+  width: 55px;
+  height: 22px;
+  border: 1px solid #909090; 
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 1px;
+  left: 1px;
   transition: left 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  z-index: 101; /* 텍스트 위에 서클이 오도록 z-index 설정 */
+  z-index: 101; 
 }
 
 /* Text for °F and °C */
 .toggle-text-left, .toggle-text-right {
-  color: #fff;
+  color: #909090;
   font-size: 12px;
   z-index: 100; /* 서클 뒤에 텍스트가 위치하도록 z-index 설정 */
 }
@@ -93,5 +99,29 @@
 
 /* Toggle active 상태 */
 .toggle-container.toggled .toggle-circle {
-  left: 58px; /* 토글 서클이 오른쪽 끝으로 이동하도록 설정 */
+  left: 52px; /* 토글 서클이 오른쪽 끝으로 이동하도록 설정 */
+}
+
+
+/* 배지 */
+
+
+/* 삭제 배지 초기 상태 */
+.delete-badge {
+  display: none;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.city-button-container {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
 }

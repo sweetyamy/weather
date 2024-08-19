@@ -12,9 +12,14 @@ const WeatherBox = ({ weather, isCelsius }) => {
 
   return (
     <div>
-      <div>{weather.name}</div>
       <div>
-        Temp:{' '}
+        <h1>My Location </h1>
+        <h3>{weather.name}</h3>
+      </div>
+      <div>
+        <h1>
+          {isCelsius ? weather.main.temp : toFahrenheit(weather.main.temp)}°
+        </h1>
         {isCelsius
           ? weather.main.temp_min
           : toFahrenheit(weather.main.temp_min)}{' '}
@@ -22,19 +27,30 @@ const WeatherBox = ({ weather, isCelsius }) => {
         {isCelsius
           ? weather.main.temp_max
           : toFahrenheit(weather.main.temp_max)}
-        °{isCelsius ? 'C' : 'F'} | Feels like:{' '}
+        °{isCelsius ? 'C' : 'F'}
+      </div>
+      <div>
+        <h3>{weather.weather[0].description}</h3>
+      </div>
+      <div>
+        <strong>Feels like:</strong>{' '}
         {isCelsius
           ? weather.main.feels_like
           : toFahrenheit(weather.main.feels_like)}
         °{isCelsius ? 'C' : 'F'}
       </div>
-      <div>{weather.weather[0].description}</div>
+
       <div>
         <div>
-          Wind speed: {weather.wind.speed} {isCelsius ? 'm/s' : 'mph'}
+          <strong>Wind speed:</strong> {weather.wind.speed}{' '}
+          {isCelsius ? 'm/s' : 'mph'}
         </div>
-        <div>Humidity: {weather.main.humidity}%</div>
-        <div>Visibility: {weather.visibility.toLocaleString()} km</div>
+        <div>
+          <strong>Humidity:</strong> {weather.main.humidity}%
+        </div>
+        <div>
+          <strong>Visibility:</strong> {weather.visibility.toLocaleString()} km
+        </div>
       </div>
     </div>
   );
