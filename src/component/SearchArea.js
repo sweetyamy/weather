@@ -84,8 +84,8 @@ const SearchArea = ({
           onClick={toggleTempUnit}
         >
           <div className='toggle-circle'></div>
-          <span className='toggle-text-left'>Unit: °F</span>
-          <span className='toggle-text-right'>Unit: °C</span>
+          <span className='toggle-text-left'>Unit: °C</span>
+          <span className='toggle-text-right'>Unit: °F</span>
         </div>
       </div>
     </div>
