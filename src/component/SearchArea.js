@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const SearchArea = ({ cities, setCities, initialCities }) => {
+const SearchArea = ({
+  cities,
+  setCities,
+  initialCities,
+  isCelsius,
+  setIsCelsius
+}) => {
   const APIKey = `6b37f55cdd36fdaefcb3814bc10d46fc`;
   const inputRef = useRef(null); // input box에 접근하기 위한 ref 생성
 
@@ -44,6 +50,11 @@ const SearchArea = ({ cities, setCities, initialCities }) => {
     }
   };
 
+  // 섭씨/화씨 단위를 토글하는 함수
+  const toggleTempUnit = () => {
+    setIsCelsius(!isCelsius);
+  };
+
   // 리셋 함수
   const handleReset = () => {
     setCities([...initialCities]);
@@ -66,6 +77,16 @@ const SearchArea = ({ cities, setCities, initialCities }) => {
         <button className='btn-add' onClick={handleReset}>
           Reset
         </button>
+      </div>
+      <div className='bd-mode-toggle'>
+        <div
+          className={`toggle-container ${!isCelsius ? 'toggled' : ''}`}
+          onClick={toggleTempUnit}
+        >
+          <div className='toggle-circle'></div>
+          <span className='toggle-text-left'>Unit: °F</span>
+          <span className='toggle-text-right'>Unit: °C</span>
+        </div>
       </div>
     </div>
   );
